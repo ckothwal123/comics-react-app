@@ -3,18 +3,21 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import blue from "@material-ui/core/colors/blue"
 
 //Material UI theme
 const useStyles = makeStyles((theme) => ({
     root: {
-    //   display: 'flex',
+        display: 'flex',
     //   flexWrap: 'wrap',
     //   justifyContent: 'center',
-    //   padding: "8px",
-    // //   overflow: 'hidden',
-    //   backgroundColor: theme.palette.background.paper,
-    //   alignContent: 'stretch'
+        padding: "8px",
+    //   overflow: 'hidden',
+        backgroundColor: theme.palette.background.default,
+    
         paddingTop:25,
         paddingLeft:50,
         paddingRight:50,
@@ -27,8 +30,27 @@ const useStyles = makeStyles((theme) => ({
       spacing: 8,
       
     },
+    rootButton: {
+        flexGrow: 1,
+      },
+    menuButton: {
+        marginRight: theme.spacing(2),
+      },
   }));
 
+function DenseAppBar(){
+    const bc = blue[700];
+
+    return (
+          <AppBar position="static" backgroundColor={bc}>
+            <Toolbar variant="dense">
+              <Typography variant="h6" color="inherit">
+                Comics
+              </Typography>
+            </Toolbar>
+          </AppBar>
+      );
+}
 
 function ThemeBody(props){
 
@@ -58,14 +80,15 @@ class Api extends Component{
 
     render(){
         let result = this.state.data;
-        let res = result["results"] && result["results"].map((tile, idx) => (
+        let res = result["results"] && result["results"].map((tile, idx) =>(
                 <GridListTile key={tile.comic_link} cols={1} rows={1}>
                 <img src={tile.comic_link} alt={tile.comic_title} height={300} width={300} />
                 </GridListTile>
                 ))
 
-        return <ThemeBody value={res}></ThemeBody>
+        return ([<ThemeBody value={res}></ThemeBody>])
         }
 }
 
 export default Api;
+export {DenseAppBar};
