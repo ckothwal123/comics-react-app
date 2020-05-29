@@ -7,32 +7,33 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import blue from "@material-ui/core/colors/blue"
+import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 
 //Material UI theme
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    //   flexWrap: 'wrap',
-    //   justifyContent: 'center',
-        padding: "8px",
-    //   overflow: 'hidden',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        padding: "25px",
+        overflow: 'hidden',
         backgroundColor: theme.palette.background.default,
-    
-        paddingTop:25,
-        paddingLeft:50,
-        paddingRight:50,
-        paddingBottom:25
+        
     },
     gridList: {
       width: "100%",
       height: "100%",
       cellHeight: 'auto',
+      justifyContent:"center",
+      alignItems:"center",
       spacing: 8,
       
     },
     rootButton: {
         flexGrow: 1,
       },
+
     menuButton: {
         marginRight: theme.spacing(2),
       },
@@ -43,7 +44,7 @@ function DenseAppBar(){
 
     return (
           <AppBar position="static" backgroundColor={bc}>
-            <Toolbar variant="dense">
+            <Toolbar variant="dense" backgroundColor={bc}>
               <Typography variant="h6" color="inherit">
                 Comics
               </Typography>
@@ -55,21 +56,21 @@ function DenseAppBar(){
 function ThemeBody(props){
 
     const classes = useStyles();
-    return (<div className={classes.root}><GridList cellHeight={300} className={classes.gridList} cols={3}>
-                                        {props.value}</GridList></div>)
+    return (<div className={classes.root}><GridList cellHeight={250} className={classes.gridList} cols={2}>
+                                        {props.value}</GridList><Button variant="contained" color="primary">Primary</Button></div>)
 }
 
 class Api extends Component{
 
 
     state = {
-        data : []
+        data : [],
+        url : "http://127.0.0.1:8000/comics/heart-and-brain/"
     }
 
     UNSAFE_componentWillMount(){
 
-        let url = "http://127.0.0.1:8000/comics/heart-and-brain/";
-        fetch(url)
+        fetch(this.state.url)
         .then(response => response.json())
         .then(data => {
             this.setState({
@@ -78,15 +79,16 @@ class Api extends Component{
         })
     }
 
+
     render(){
-        let result = this.state.data;
-        let res = result["results"] && result["results"].map((tile, idx) =>(
+        const result = this.state.data;
+        const res = result["results"] && result["results"].map((tile, idx) =>(
                 <GridListTile key={tile.comic_link} cols={1} rows={1}>
-                <img src={tile.comic_link} alt={tile.comic_title} height={300} width={300} />
+                <img src={tile.comic_link} alt={tile.comic_title} height={230} width={100} />
                 </GridListTile>
                 ))
 
-        return ([<ThemeBody value={res}></ThemeBody>])
+        return ([<ThemeBody value={res} />])
         }
 }
 
