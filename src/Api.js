@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 //Material UI components
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import blue from "@material-ui/core/colors/blue"
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 //Material UI theme
 const useStyles = makeStyles((theme) => ({
@@ -53,43 +54,32 @@ function DenseAppBar(){
       );
 }
 
-function ThemeBody(props){
 
-    const classes = useStyles();
-    return (<div className={classes.root}><GridList cellHeight={250} className={classes.gridList} cols={2}>
-                                        {props.value}</GridList><Button variant="contained" color="primary">Primary</Button></div>)
-}
+function Api(props){
 
-class Api extends Component{
+        const classes = useStyles();
+        const [url,setUrl] = useState("http://127.0.0.1:8000/comics/heart-and-brain/");
+        const [data,setData] = useState([]);
 
+        useEffect(() =>{
+            const fetchData = async () => {
+                const result = await axios(url);
+                setData(result.data);
+            };
+            fetchData();
+        }, [url]);
 
-    state = {
-        data : [],
-        url : "http://127.0.0.1:8000/comics/heart-and-brain/"
-    }
-
-    UNSAFE_componentWillMount(){
-
-        fetch(this.state.url)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                data : data
-            })
-        })
-    }
-
-
-    render(){
-        const result = this.state.data;
-        const res = result["results"] && result["results"].map((tile, idx) =>(
+        const res = data["results"] && data["results"].map((tile, idx) =>(
                 <GridListTile key={tile.comic_link} cols={1} rows={1}>
                 <img src={tile.comic_link} alt={tile.comic_title} height={230} width={100} />
                 </GridListTile>
                 ))
 
-        return ([<ThemeBody value={res} />])
-        }
+        return (<div className={classes.root}>
+                <GridList cellHeight={250} className={classes.gridList} cols={2}>{res}</GridList>
+                <Button variant="contained" color="primary" onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
+                <Button variant="contained" color="primary" onClick={() => setUrl(data.next)} padding="5px">Next</Button>
+                </div>)
 }
 
 export default Api;
