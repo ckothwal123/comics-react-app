@@ -89,6 +89,10 @@ function Api(props){
                 setData(result.data);
             };
             fetchData();
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
         }, [url]);
 
         const res = data["results"] && data["results"].map((tile, idx) =>(
