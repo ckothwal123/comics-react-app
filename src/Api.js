@@ -6,21 +6,22 @@ import GridListTile from '@material-ui/core/GridListTile';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import blue from "@material-ui/core/colors/blue"
-import Link from '@material-ui/core/Link';
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import Container from "@material-ui/core/Container"
+import './Api.css';
 
 //Material UI theme
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         padding: "25px",
         overflow: 'hidden',
-        backgroundColor: theme.palette.background.default,
-        
+        // backgroundColor: theme.palette.background.default,
+        primary: "blue",
     },
     gridList: {
       width: "100%",
@@ -35,17 +36,38 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
       },
 
+    img: {
+        border: "2px",
+        borderColor: "#fff", 
+        borderRadius: "8px",
+        padding: "5px",
+        width: "100%",
+        height:"100%",
+        
+      },
+
     menuButton: {
         marginRight: theme.spacing(2),
       },
+    
+    buttons:{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            '& > *': {
+              margin: theme.spacing(1),
+            },
+            paddingBottom:"10px",
+        }
+    
   }));
 
 function DenseAppBar(){
-    const bc = blue[700];
+    
 
     return (
-          <AppBar position="static" backgroundColor={bc}>
-            <Toolbar variant="dense" backgroundColor={bc}>
+          <AppBar position="static" >
+            <Toolbar variant="dense" maxWidth="xs">
               <Typography variant="h6" color="inherit">
                 Comics
               </Typography>
@@ -70,16 +92,23 @@ function Api(props){
         }, [url]);
 
         const res = data["results"] && data["results"].map((tile, idx) =>(
-                <GridListTile key={tile.comic_link} cols={1} rows={1}>
-                <img src={tile.comic_link} alt={tile.comic_title} height={230} width={100} />
+                <GridListTile key={tile.comic_link}>
+                <img className={classes.img} src={tile.comic_link} alt={tile.comic_title}/>
                 </GridListTile>
                 ))
 
-        return (<div className={classes.root}>
-                <GridList cellHeight={250} className={classes.gridList} cols={2}>{res}</GridList>
-                <Button variant="contained" color="primary" onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
-                <Button variant="contained" color="primary" onClick={() => setUrl(data.next)} padding="5px">Next</Button>
-                </div>)
+        return (<Container maxWidth="lg">
+                <div className={classes.root}>
+                <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
+                </div>
+                <div className={classes.buttons}>
+                <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                <Button onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
+                <Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>
+                </ButtonGroup>
+                </div>
+                </Container>)
+
 }
 
 export default Api;
