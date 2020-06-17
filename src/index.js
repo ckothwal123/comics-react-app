@@ -30,7 +30,9 @@ ReactDOM.render(
 
 ReactDOM.render(
   <React.StrictMode>
+  <MuiThemeProvider theme={theme}>
     <DenseAppBar/>
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('nav')
 

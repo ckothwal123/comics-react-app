@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import Container from "@material-ui/core/Container"
 import './Api.css';
+import Paper from '@material-ui/core/Paper';
+
 
 //Material UI theme
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
             alignItems: 'center',
             '& > *': {
-              margin: theme.spacing(1),
+              margin: theme.spacing(2),
             },
             paddingBottom:"10px",
         }
@@ -66,10 +68,10 @@ function DenseAppBar(){
     
 
     return (
-          <AppBar position="static" >
-            <Toolbar variant="dense" maxWidth="xs">
+          <AppBar position="static">
+            <Toolbar variant="dense" maxWidth="md">
               <Typography variant="h6" color="inherit">
-                Comics
+                Comics-Scraper
               </Typography>
             </Toolbar>
           </AppBar>
@@ -80,7 +82,7 @@ function DenseAppBar(){
 function Api(props){
 
         const classes = useStyles();
-        const [url,setUrl] = useState("http://127.0.0.1:8000/comics/heart-and-brain/");
+        const [url,setUrl] = useState("https://comics-scraper-app.herokuapp.com/comics/heart-and-brain/");
         const [data,setData] = useState([]);
 
         useEffect(() =>{
@@ -102,15 +104,15 @@ function Api(props){
                 ))
 
         return (<Container maxWidth="lg">
-                <div className={classes.root}>
-                <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
-                </div>
-                <div className={classes.buttons}>
-                <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-                <Button onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
-                <Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>
-                </ButtonGroup>
-                </div>
+                  <div className={classes.root}>
+                    <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
+                  </div>
+                  <div className={classes.buttons}>
+                    <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                    <Button onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
+                    <Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>
+                    </ButtonGroup>
+                  </div>
                 </Container>)
 
 }
