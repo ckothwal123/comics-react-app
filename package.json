@@ -11,6 +11,8 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "dependencies": "0.0.1",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
@@ -18,8 +20,8 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node server",
+    "start:dev": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
