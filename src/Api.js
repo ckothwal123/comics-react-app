@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import Container from "@material-ui/core/Container"
 import './Api.css';
-import Paper from '@material-ui/core/Paper';
 
 
 //Material UI theme
@@ -66,54 +65,65 @@ const useStyles = makeStyles((theme) => ({
 
 function DenseAppBar(){
     
-
-    return (
-          <AppBar position="static">
-            <Toolbar variant="dense" maxWidth="md">
-              <Typography variant="h6" color="inherit">
-                Comics-Scraper
-              </Typography>
-            </Toolbar>
-          </AppBar>
-      );
+  return (
+        <AppBar position="static">
+          <Toolbar variant="dense" maxWidth="md">
+            <Typography variant="h6" color="inherit">
+              Comics-Scraper
+            </Typography>
+          </Toolbar>
+        </AppBar>
+    );
 }
 
 
 function Api(props){
 
-        const classes = useStyles();
-        const [url,setUrl] = useState("https://comics-scraper-app.herokuapp.com/comics/heart-and-brain/");
-        const [data,setData] = useState([]);
+  const classes = useStyles();
+  const [url,setUrl] = useState("https://comics-scraper-app.herokuapp.com/comics/heart-and-brain/");
+  const [data,setData] = useState([]);
+  let prevButton, nextButton;
+  useEffect(() =>{
+    const fetchData = async () => {
+        const result = await axios(url);
+        setData(result.data);
+    };
+    fetchData();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, [url]);
 
-        useEffect(() =>{
-            const fetchData = async () => {
-                const result = await axios(url);
-                setData(result.data);
-            };
-            fetchData();
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
-        }, [url]);
+  const res = data["results"] && data["results"].map((tile, idx) =>(
+          <GridListTile key={tile.comic_link}>
+          <img className={classes.img} src={tile.comic_link} alt={tile.comic_title}/>
+          </GridListTile>
+          ))
 
-        const res = data["results"] && data["results"].map((tile, idx) =>(
-                <GridListTile key={tile.comic_link}>
-                <img className={classes.img} src={tile.comic_link} alt={tile.comic_title}/>
-                </GridListTile>
-                ))
+  if (data.previous === null){
+    prevButton = (<Button padding="5px">Prev</Button>)
+  }else{
+    prevButton = (<Button onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>)
+  }
 
-        return (<Container maxWidth="lg">
-                  <div className={classes.root}>
-                    <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
-                  </div>
-                  <div className={classes.buttons}>
-                    <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-                    <Button onClick={() => setUrl(data.previous)} padding="5px">Prev</Button>
-                    <Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>
-                    </ButtonGroup>
-                  </div>
-                </Container>)
+  if (data.next === null){
+    nextButton = (<Button padding="5px">Next</Button>)
+  }else{
+    nextButton = (<Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>)
+  }
+
+  return (<Container maxWidth="lg">
+            <div className={classes.root}>
+              <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
+            </div>
+            <div className={classes.buttons}>
+              <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                {prevButton}
+                {nextButton}
+              </ButtonGroup>
+            </div>
+          </Container>)
 
 }
 
