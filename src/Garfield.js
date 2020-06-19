@@ -63,21 +63,9 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-function DenseAppBar(){
-    
-  return (
-          <AppBar position="static">
-            <Toolbar variant="dense" maxWidth="md">
-              <Typography variant="h6" color="inherit">
-                Comics-Scraper
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        );
-}
 
 
-function Api(props){
+function Garfield(props){
 
   const classes = useStyles();
   const [url,setUrl] = useState(props.url);
@@ -127,5 +115,4 @@ function Api(props){
 
 }
 
-export default Api;
-export {DenseAppBar};
+export default Garfield;

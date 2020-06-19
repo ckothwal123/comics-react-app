@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App,{DenseAppBar} from './Api';
+import AwkwardYeti,{DenseAppBar} from './Api';
 import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import Main from './Main'
 
 const theme = createMuiTheme({
   
@@ -21,9 +21,10 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
+    {/* <MuiThemeProvider theme={theme}>
     <App />
-    </MuiThemeProvider>
+    </MuiThemeProvider> */}
+  <Main />
   </React.StrictMode>,
   document.getElementById('root')
 );
