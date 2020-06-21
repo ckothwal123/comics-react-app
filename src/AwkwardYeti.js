@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -63,19 +60,6 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-function DenseAppBar(){
-    
-  return (
-          <AppBar position="static">
-            <Toolbar variant="dense" maxWidth="md">
-              <Typography variant="h6" color="inherit">
-                Comics-Scraper
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        );
-}
-
 
 function Api(props){
 
@@ -128,4 +112,3 @@ function Api(props){
 }
 
 export default Api;
-export {DenseAppBar};

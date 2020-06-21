@@ -101,9 +101,9 @@ function Garfield(props){
     nextButton = (<Button onClick={() => setUrl(data.next)} padding="5px">Next</Button>)
   }
 
-  return (<Container maxWidth="lg">
+  return (<Container maxWidth="md">
             <div className={classes.root}>
-              <GridList spacing={20} cellHeight={350} cols={2} justifyContent="center">{res}</GridList>
+              <GridList spacing={40} cellHeight={250} cols={1} justifyContent="center">{res}</GridList>
             </div>
             <div className={classes.buttons}>
               <ButtonGroup variant="text" color="primary" aria-label="text primary button group">

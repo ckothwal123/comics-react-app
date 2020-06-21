@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AwkwardYeti,{DenseAppBar} from './Api';
+import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Main from './Main'
+import Main,{DenseAppBar} from './Main'
 
 const theme = createMuiTheme({
   
@@ -24,7 +24,9 @@ ReactDOM.render(
     {/* <MuiThemeProvider theme={theme}>
     <App />
     </MuiThemeProvider> */}
-  <Main />
+  <BrowserRouter>
+    <Main/>
+  </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
