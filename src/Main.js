@@ -25,54 +25,57 @@ const theme = createMuiTheme({
         main: '#ec407a',
       },
     },
-  });
+});
 
 const useStyles = makeStyles((theme) => ({
-root: {
-    flexGrow: 1,
-},
-menuButton: {
-    marginRight: theme.spacing(2),
-},
-title: {
-    flexGrow: 1,
-},
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+    body:{
+        backgroundColor: "#dcdfe3",
+    }
 }));
 
 
 function DenseAppBar(){
     const classes = useStyles();
 
-return (<div className={classes.root}>
-        <AppBar position="static" maxWidth="lg">
-            <Toolbar maxWidth="lg">
-                <Typography variant="h6" color="inherit" className={classes.title}>
-                    Comics-Scraper
-                </Typography>
-                <Button color="inherit" component={Link} to="/">
-                    Home
-                </Button>
-            </Toolbar>
-        </AppBar>
-        </div>
-        );
+    return (<div className={classes.root}>
+                <AppBar position="static" maxWidth="lg">
+                    <Toolbar maxWidth="lg">
+                        <Typography variant="h6" color="inherit" className={classes.title}>
+                            Comics-Scraper
+                        </Typography>
+                        <Button color="inherit" component={Link} to="/">
+                            Home
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            );
 }
 
 
 function Main() {
+
+    const classes = useStyles();
+
     return (
         
-      <div>
+      <div className={classes.body}>
         <Switch>
-
             <Route path="/awkward-yeti">
                 <AwkwardYeti url="https://comics-scraper-app.herokuapp.com/comics/heart-and-brain/"/>
             </Route>
-
             <Route path="/garfield">
                 <Garfield url="https://comics-scraper-app.herokuapp.com/comics/garfield/"/>
             </Route>
-
             <Route path="/">
                 <Home />
             </Route>
