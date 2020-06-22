@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {Home} from './Home'
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const theme = createMuiTheme({
@@ -26,22 +27,34 @@ const theme = createMuiTheme({
     },
   });
 
+const useStyles = makeStyles((theme) => ({
+root: {
+    flexGrow: 1,
+},
+menuButton: {
+    marginRight: theme.spacing(2),
+},
+title: {
+    flexGrow: 1,
+},
+}));
+
 
 function DenseAppBar(){
+    const classes = useStyles();
 
-return (
+return (<div className={classes.root}>
         <AppBar position="static" maxWidth="lg">
-            <Toolbar variant="dense" maxWidth="lg">
-            <Typography variant="h6" color="inherit" >
-                Comics-Scraper
-            </Typography>
-            <Button color="inherit" component={Link} to="/">
-                Home
-            </Button>
-           
+            <Toolbar maxWidth="lg">
+                <Typography variant="h6" color="inherit" className={classes.title}>
+                    Comics-Scraper
+                </Typography>
+                <Button color="inherit" component={Link} to="/">
+                    Home
+                </Button>
             </Toolbar>
-            
         </AppBar>
+        </div>
         );
 }
 
