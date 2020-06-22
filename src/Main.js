@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     body:{
-        backgroundColor: "#dcdfe3",
+        // backgroundColor: "#dcdfe3",
     }
 }));
 
